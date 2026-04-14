@@ -1,0 +1,11 @@
+/* Additional styles for SanskaarPath */
+/* This file is kept for custom styles that don't fit in globals.css */
+
+/* Scrollbar hide utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
