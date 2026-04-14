@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Child from "@/models/Child";
+import User from "@/models/User";
 import { authenticateRequest } from "@/lib/auth";
 import { checkNewBadges, calculateLevel } from "@/utils/gamification";
 
@@ -12,7 +12,7 @@ export async function GET(request, { params }) {
     }
 
     await dbConnect();
-    const child = await Child.findById(params.id);
+    const child = await User.findById(params.id);
 
     if (!child) {
       return NextResponse.json({ error: "Child not found" }, { status: 404 });
@@ -37,7 +37,7 @@ export async function PATCH(request, { params }) {
     }
 
     await dbConnect();
-    const child = await Child.findById(params.id);
+    const child = await User.findById(params.id);
 
     if (!child) {
       return NextResponse.json({ error: "Child not found" }, { status: 404 });

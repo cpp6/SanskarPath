@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import Child from "@/models/Child";
+import User from "@/models/User";
 import ActivityLog from "@/models/ActivityLog";
 import { authenticateRequest } from "@/lib/auth";
 
@@ -21,7 +21,7 @@ export async function POST(request) {
       );
     }
 
-    const child = await Child.findById(childId);
+    const child = await User.findById(childId);
     if (!child) {
       return NextResponse.json({ error: "Child not found" }, { status: 404 });
     }
@@ -92,7 +92,7 @@ export async function GET(request) {
       date: { $gte: startDate },
     }).sort({ date: 1 });
 
-    const child = await Child.findById(childId).select("screenTimeLimit currentScreenTime isLocked");
+    const child = await User.findById(childId).select("screenTimeLimit currentScreenTime isLocked");
 
     return NextResponse.json({ logs, child });
   } catch (error) {
