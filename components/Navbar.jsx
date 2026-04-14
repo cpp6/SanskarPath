@@ -20,11 +20,13 @@ import { useTheme } from "next-themes";
 export default function Navbar({ transparent = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { user, logout, initialize } = useAuthStore();
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
 
   useEffect(() => {
+    setMounted(true);
     initialize();
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -85,7 +87,7 @@ export default function Navbar({ transparent = false }) {
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="p-2.5 rounded-xl bg-sandalwood-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-saffron-500 transition-colors"
           >
-            {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {!mounted ? <Moon className="w-5 h-5 opacity-0" /> : theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
 
           {user ? (
